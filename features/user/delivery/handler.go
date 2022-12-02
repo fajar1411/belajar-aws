@@ -51,6 +51,7 @@ func (delivery *UserDeliv) Create(c echo.Context) error {
 }
 func (delivery *UserDeliv) Update(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
+	
 	userInput := UserRequest{}
 	errBind := c.Bind(&userInput) // menangkap data yg dikirim dari req body dan disimpan ke variabel
 	if errBind != nil {

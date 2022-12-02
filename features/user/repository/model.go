@@ -29,6 +29,7 @@ func FromUserCore(dataCore _user.UserCore) User { //fungsi yang mengambil data d
 	return userGorm //insert user
 }
 
+// methode karena mengambil data dari user struct
 func (dataModel *User) ModelsToCore() _user.UserCore { //fungsi yang mengambil data dari  user gorm(model.go)  dan merubah data ke entities usercore
 	return _user.UserCore{
 
