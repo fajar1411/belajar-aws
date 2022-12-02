@@ -2,6 +2,7 @@ package mysql
 
 import (
 	"fajar/clean/config"
+	user "fajar/clean/features/user/repository"
 	"fmt"
 	"log"
 
@@ -15,5 +16,12 @@ func InitDB(cfg *config.AppConfig) *gorm.DB {
 	if err != nil {
 		log.Fatal("tidak bisa koneksi ke database anda")
 	}
+
+	migrateDB(db)
+
 	return db
+}
+
+func migrateDB(db *gorm.DB) {
+	db.AutoMigrate(&user.User{})
 }
