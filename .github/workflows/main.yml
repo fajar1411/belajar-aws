@@ -18,7 +18,7 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            cd /home/ubuntu/project/belajar-aws
+            cd /home/ubuntu/ProjectBe/Project_BE
             git pull origin main
             docker stop fajar-api 
             docker rm fajar-api

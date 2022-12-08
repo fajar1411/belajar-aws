@@ -1,0 +1,166 @@
+openapi: 3.0.3
+info:
+  title: ALTA BE 13
+  version: 1.0.0
+  description: testing Fajar
+  contact:
+    name: Official
+    url: https://academy.alterra.id
+    email: Frizky861@gmail.com
+externalDocs:
+  url: https://alta.id/immersive
+  description: dokumentasi testing fajar
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/FRIZKY861/Testing/1.0.0
+  - description: Testing real Server
+    url:  ec2-54-168-191-197.ap-northeast-1.compute.amazonaws.com
+  - description: Testing Server
+    url:  https://{environment}.api.alta.id
+    variables:
+      environment:
+        default: dev
+        enum:
+        - "dev"
+        - "prod"
+
+paths:
+      /users:
+        post:
+          summary: add User
+          description: menambah data user
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  example:
+                    name: "budi"
+                    email: "budi@mail.com"
+                    password: "qwerty"
+                    phone: "0822349"
+                    address: "surabaya"
+          responses:
+            '201':
+              description: Create User Berhasil.
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    example:
+                      status: "Success"
+                      massage: "Create Berhasil"
+            '404': 
+              $ref: '#/components/responses/404'
+            '500': 
+              $ref: '#/components/responses/500'
+        get:
+          summary: Melihat seluruh data
+          description: get all user
+          security:
+            - JWTAuth: []
+          responses:
+            '200':
+              description: A list user.
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    example:
+                      status: "Berhasil"
+                      massage: "Berhasil melihat semua data User"
+                      data:
+                        - id: 1
+                          name: "budi"
+                          email: "budi@mail.com"
+                          phone: "0822349"
+                          address: "surabaya"
+                        - id: 2
+                          name: "Rudi"
+                          email: "Rdi@mail.com"
+                          phone: "08223493232"
+                          address: "surabaya"
+            '404': 
+              $ref: '#/components/responses/404'
+/users/{id_users}:
+    get:
+      summary: Melihat seluruh data
+      description: get all user
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: id_users
+          description: "Id Users"
+          required: true
+          in: path
+          schema:
+            type: integer
+            example: 1
+
+
+      responses:
+        '200':
+          description: A list user.
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "Berhasil"
+                  massage: "Berhasil melihat semua data User"
+                  data:
+                    - id: 1
+                      name: "budi"
+                      email: "budi@mail.com"
+                      phone: "0822349"
+                      address: "surabaya"
+                    - id: 2
+                      name: "Rudi"
+                      email: "Rdi@mail.com"
+                      phone: "08223493232"
+                      address: "surabaya"
+        '404': 
+          $ref: '#/components/responses/404'
+####################################
+#  COMPONENTS
+####################################
+components:
+  securitySchemes:
+    JWTAuth:  
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description : "use of token"
+
+  schemas:
+    ResponseWithOutData:
+      type: object
+      properties:
+        status:
+          type: string
+        massage:
+          type: string
+  responses:
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            $ref: '#/components/schemas/ResponseWithoutData'
+          example:
+            status: "failed"
+            massage: "Data Not Found"
+
+    '500':
+      description: Internal server Erorr
+      content:
+        application/json:
+          schema:
+            type: object
+            $ref: '#/components/schemas/ResponseWithoutData'
+          example:
+            status: "failed"
+            massage: "Internal Server ERORR"

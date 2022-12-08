@@ -14,7 +14,6 @@ type User struct {
 	Phone    string `gorm:"type:varchar(15)"`
 	Address  string
 	Role     string
-	// Books    []Book
 }
 
 func FromUserCore(dataCore _user.UserCore) User { //fungsi yang mengambil data dari entities usercore dan merubah data ke user gorm(model.go)
